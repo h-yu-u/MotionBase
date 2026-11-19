@@ -72,7 +72,10 @@ def execute(command, shot, style, output=None, blender=None):
                         "-c:a", "aac", "-b:a", "192k"]
             else:
                 cmd += ["-map", "0:v:0", "-an"]
-            cmd += ["-frames:v", str(shot["frames"]), "-t", str(shot["frames"] / shot["fps"]),
+            # The validated sequence already fixes the video frame count. A separate
+            # -frames:v limit prematurely stops padded AAC on FFmpeg 4.4; use the
+            # common duration limit so both encoders can finish their streams.
+            cmd += ["-t", str(shot["frames"] / shot["fps"]),
                     "-c:v", "libx264", "-crf", "17", "-pix_fmt", "yuv420p", "-vf",
                     "scale=out_color_matrix=bt709", "-color_primaries", "bt709", "-colorspace",
                     "bt709", "-color_trc", "bt709", "-movflags", "+faststart", str(result)]
