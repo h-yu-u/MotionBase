@@ -1,0 +1,12 @@
+{
+  "version": 1, "name": "Vermilion Woodblock", "shading": "continuous",
+  "light": [0.72,-0.57,0.49], "shadow": 0.59, "rim": 0.24, "grain": 0.24,
+  "palette": {
+    "sky":"#F6E5BC","sun":"#D34C32","far":"#C3B392","mid":"#9B947D","mist":"#DCCEAD",
+    "bank":"#656C64","earth":"#383F3D","stone":"#59605A","grass":"#353B36",
+    "ink":"#202A28","hair":"#333B37","mask":"#FFF2CF","mask_shadow":"#C8B999",
+    "accent":"#AF3E2E","glove":"#B7A484","coat":"#4C5952","coat_dark":"#313D3A",
+    "cloth":"#424A43","shade":"#28322F","trim":"#D9BF82","metal":"#BBB8A0","glint":"#FFF0CA",
+    "trail":"#BB422F","trail_edge":"#FFDA9A"
+  }
+}
