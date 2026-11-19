@@ -1,0 +1,4 @@
+interface:
+  display_name: "MotionBase 评审"
+  short_description: "根据预览反馈精确修改镜头，并验证需保留的运动、机位和时长"
+  default_prompt: "使用 $motionbase-review，把这个镜头换成木刻风格，保持动作、构图和时长，并比较前后结果。"

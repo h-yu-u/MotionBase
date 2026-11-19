@@ -1,0 +1,4 @@
+interface:
+  display_name: "MotionBase 导演"
+  short_description: "将创作描述转为可检查、可构建和可渲染的 MotionBase 镜头"
+  default_prompt: "使用 $motionbase-direct，根据现有资产制作一个 5 秒镜头，记录创作意图并生成可执行的镜头配置。"

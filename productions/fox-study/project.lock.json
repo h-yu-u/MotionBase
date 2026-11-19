@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "project": "fox-study",
+  "project_sha256": "04681adec6f7bbb52631d7a858e7b9dc96cab1ec410a562899c96697bf2ea922",
+  "engine": {
+    "version": "0.1.0",
+    "source_sha256": "bbf0a03be8d3d0cb83c07d1b6db5feb3ac6e1ea3422c49b0bce4ab69214e9a22"
+  },
+  "packs": {
+    "fox-cliff": {
+      "manifest": "../../../motionbase-assets/packs/fox-cliff/pack.json",
+      "revision": "1.0.0",
+      "manifest_sha256": "f0b69a5e96c31b164f642279c163df2daa5b963d4b134931b2f54bd33eda69c6",
+      "files": {
+        "actions/leap.blend": "22a3c218c96872e1572ec039112a01a9f32ec52d2162b285a8b4786a564ead19",
+        "audio/leap.wav": "416414274b2a9e01a650897d1155632fcaab529951c788783b9b1cf25af13778",
+        "characters/fox.blend": "3d1f99ac43b0d9321a50f65630bddb8d45bbefbadc760e6befc258c8a8855cda",
+        "looks/moon-cel.json": "c2e4bc7e5b6f803309939928d1a147ba330b9e03d5df5e557ac52d909bc86614",
+        "looks/woodblock.json": "e1cb86e415bcf163526661700d3c48000efd49f03d9ecb4ae3c140a66abbdd55",
+        "stages/cliff.blend": "3b3e57cc6aa25e2ed2e033c5f9cf7a5e4f9bea58cbbcd2cf1271bd97f56be008"
+      }
+    }
+  },
+  "shots": {
+    "010": {
+      "file": "shots/010.json",
+      "sha256": "57284c88d03f0d9ec2438443956cd3f896b38c091249d3a0b2c786c0f049f5d3",
+      "style": "fox-cliff:look.moon-cel"
+    }
+  }
+}

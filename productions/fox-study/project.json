@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "id": "fox-study",
+  "packs": {
+    "fox-cliff": "../../../motionbase-assets/packs/fox-cliff/pack.json"
+  },
+  "shots": {
+    "010": {
+      "file": "shots/010.json",
+      "style": "fox-cliff:look.moon-cel"
+    }
+  }
+}

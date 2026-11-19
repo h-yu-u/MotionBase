@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "fps": 30,
+  "frames": 150,
+  "size": [
+    960,
+    540
+  ],
+  "samples": 10,
+  "audio": "../../../../motionbase-assets/packs/fox-cliff/audio/leap.wav",
+  "stage": {
+    "file": "../../../../motionbase-assets/packs/fox-cliff/stages/cliff.blend",
+    "collection": "Cliff",
+    "camera": "ShotCamera"
+  },
+  "actors": [
+    {
+      "id": "fox",
+      "file": "../../../../motionbase-assets/packs/fox-cliff/characters/fox.blend",
+      "collection": "Performer",
+      "rig": "PerformerRig",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "clips": [
+        {
+          "file": "../../../../motionbase-assets/packs/fox-cliff/actions/leap.blend",
+          "action": "Leap and sweep",
+          "start": 1,
+          "end": 150
+        }
+      ]
+    }
+  ],
+  "trails": [
+    {
+      "actor": "fox",
+      "bone": "prop",
+      "inner": [
+        0.218,
+        0.79,
+        0.0
+      ],
+      "outer": [
+        0.218,
+        1.6,
+        0.09
+      ],
+      "role": "trail",
+      "start": 53,
+      "end": 108,
+      "history": 10
+    },
+    {
+      "actor": "fox",
+      "bone": "prop",
+      "inner": [
+        0.221,
+        1.46,
+        0.03
+      ],
+      "outer": [
+        0.221,
+        1.61,
+        0.09
+      ],
+      "role": "trail_edge",
+      "start": 54,
+      "end": 105,
+      "history": 8
+    }
+  ]
+}
