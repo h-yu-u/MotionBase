@@ -1,0 +1,61 @@
+name: MotionBase CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install the engine
+        run: python -m pip install .
+      - name: Unit and CLI tests
+        run: python -m unittest discover -s tests -v
+      - name: Verify installed package outside the checkout
+        working-directory: ${{ runner.temp }}
+        run: |
+          motionbase --version
+          motionbase styles
+
+  blender:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install render tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libegl1 libxkbcommon0 libsm6 libxrender1 libxxf86vm1
+      - name: Fetch verified Blender 4.5 LTS
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl --fail --location --retry 3 --output blender.tar.xz https://download.blender.org/release/Blender4.5/blender-4.5.0-linux-x64.tar.xz
+          echo '1188b95cc12321c770b631939f7c25a096910b6f884a990bf9c0f62d52b38aec  blender.tar.xz' | sha256sum --check
+          tar -xf blender.tar.xz
+          echo "BLENDER_BIN=$RUNNER_TEMP/blender-4.5.0-linux-x64/blender" >> "$GITHUB_ENV"
+      - name: Generic runtime contract
+        run: '"$BLENDER_BIN" -b --factory-startup --disable-autoexec --python-exit-code 1 -P tests/integration/runtime_contract.py'
+      - name: Encode and inspect a real video
+        run: python tests/render_smoke.py --blender "$BLENDER_BIN"
+      - uses: actions/checkout@v4
+        with:
+          ref: assets
+          path: .asset-checkout
+      - name: Published asset contract
+        run: '"$BLENDER_BIN" -b --factory-startup --disable-autoexec --python-exit-code 1 -P .asset-checkout/packs/fox-cliff/tests/asset_contract.py -- --engine-root .'
