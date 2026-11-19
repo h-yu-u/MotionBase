@@ -1,0 +1,12 @@
+{
+  "version": 1, "name": "Moon Cel", "shading": "bands",
+  "light": [-0.45,-0.85,0.57], "shadow": 0.55, "rim": 0.13, "grain": 0,
+  "palette": {
+    "sky":"#799CA8","sun":"#FFE2A4","far":"#637F94","mid":"#4E6A7B","mist":"#96B1B5",
+    "bank":"#384C5E","earth":"#253240","stone":"#354857","grass":"#24313B",
+    "ink":"#192234","hair":"#343144","mask":"#FFF1D2","mask_shadow":"#D3B799",
+    "accent":"#DA5545","glove":"#AC8978","coat":"#4AA591","coat_dark":"#28645D",
+    "cloth":"#38394D","shade":"#232C3D","trim":"#EBC089","metal":"#A2CCD4","glint":"#FFF2CA",
+    "trail":"#EB6B43","trail_edge":"#FFF1BB"
+  }
+}

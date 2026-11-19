@@ -4,7 +4,7 @@
 
 ## 资产包
 
-`pack.json` 使用 `version: 1`，声明 `id`、人可读修订 `revision`、制作版本 `blender`，以及以资产 ID 为键的 `assets` 对象。完整可运行清单在资产分支 `packs/fox-cliff/pack.json`。引用格式为 `<包ID>:<资产ID>`，例如 `fox-cliff:character.fox`。
+`pack.json` 使用 `version: 1`，声明 `id`、人可读修订 `revision`、制作版本 `blender`，以及以资产 ID 为键的 `assets` 对象。完整可运行清单在同一仓库的 [`assets/packs/fox-cliff/pack.json`](../assets/packs/fox-cliff/pack.json)。引用格式为 `<包ID>:<资产ID>`，例如 `fox-cliff:character.fox`。
 
 | kind | 类型专属字段 |
 | --- | --- |
@@ -26,7 +26,7 @@
 {
   "version": 1,
   "id": "fox-study",
-  "packs": {"fox-cliff": "../../../motionbase-assets/packs/fox-cliff/pack.json"},
+  "packs": {"fox-cliff": "../../assets/packs/fox-cliff/pack.json"},
   "shots": {"010": {"file": "shots/010.json", "style": "fox-cliff:look.moon-cel"}}
 }
 ```
@@ -57,7 +57,7 @@
 
 ## 渲染 v1 与路径
 
-文件型 v1 保留 `stage.file/collection/camera`、`actors[].file/collection/rig/clips`、`trails`、`audio`、`fps/frames/size/samples`。直接镜头的文件相对镜头 JSON，风格材质库相对风格 JSON；编译器输出本机绝对路径，避免工作目录变化影响执行。
+文件型 v1 保留 `stage.file/collection/camera`、`actors[].file/collection/rig/clips`、`trails`、`audio`、`fps/frames/size/samples`。直接镜头的文件相对镜头 JSON，风格材质库相对风格 JSON；编译器输出本机绝对路径，避免工作目录变化影响执行。当前 `productions/fox-study/shots/010.legacy.json` 使用 `../../../assets/packs/fox-cliff/` 引用同仓资产。
 
 帧从 1 开始，首尾均包含。片段须有序、位于镜头区间内且不重叠，完整源 Action 根据目标区间缩放。画幅必须为两个正偶数；`fps`、`frames`、`samples` 为正整数。空角色数组可表达环境镜头。
 

@@ -25,6 +25,8 @@ jobs:
         run: python -m pip install .
       - name: Unit and CLI tests
         run: python -m unittest discover -s tests -v
+      - name: Compile the bundled production from one checkout
+        run: python -m motionbase compile productions/fox-study/project.json --shot 010 -o build/ci/010.json
       - name: Verify installed package outside the checkout
         working-directory: ${{ runner.temp }}
         run: |
@@ -53,9 +55,5 @@ jobs:
         run: '"$BLENDER_BIN" -b --factory-startup --disable-autoexec --python-exit-code 1 -P tests/integration/runtime_contract.py'
       - name: Encode and inspect a real video
         run: python tests/render_smoke.py --blender "$BLENDER_BIN"
-      - uses: actions/checkout@v4
-        with:
-          ref: assets
-          path: .asset-checkout
       - name: Published asset contract
-        run: '"$BLENDER_BIN" -b --factory-startup --disable-autoexec --python-exit-code 1 -P .asset-checkout/packs/fox-cliff/tests/asset_contract.py -- --engine-root .'
+        run: '"$BLENDER_BIN" -b --factory-startup --disable-autoexec --python-exit-code 1 -P assets/packs/fox-cliff/tests/asset_contract.py -- --engine-root .'

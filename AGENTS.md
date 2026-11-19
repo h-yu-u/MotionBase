@@ -5,7 +5,8 @@ Read `README.md` and `docs/architecture.zh-CN.md` before changing the execution 
 ## Ownership
 
 - Keep `motionbase/` reusable. It owns contracts, asset resolution, project locks, Blender orchestration and generic checks.
-- Keep reusable art and its generators in the independent asset checkout, normally `../motionbase-assets/`. The `assets` branch of this repository currently hosts that checkout.
+- Keep reusable art, generators and asset-specific tests in `assets/packs/`. Consume packs through their manifests; do not import their authoring code into the engine.
+- Maintain the engine, packs, Skills and production examples together on `main`. Keep module boundaries through directories and contracts, and commit related cross-module changes together.
 - Keep accepted creative intent, shot timing, selected styles, local variants and review history in the production workspace.
 - Keep project Skills in `skills/`, alongside the engine version whose CLI they call. A repository skill is not automatically installed in a user's client.
 
@@ -21,6 +22,6 @@ Read `README.md` and `docs/architecture.zh-CN.md` before changing the execution 
 
 ## Validation
 
-Run `python3 -m unittest discover -s tests -v` for configuration/compiler/CLI changes. For Blender runtime changes, also run the generic integration fixture in `tests/integration/runtime_contract.py` using Blender 4.5 LTS. Render changes additionally require the small `tests/render_smoke.py` end-to-end test with FFmpeg/FFprobe. Run the external pack's own tests when changing its files.
+Run `python3 -m unittest discover -s tests -v` for configuration/compiler/CLI changes. For Blender runtime changes, also run the generic integration fixture in `tests/integration/runtime_contract.py` using Blender 4.5 LTS. Render changes additionally require the small `tests/render_smoke.py` end-to-end test with FFmpeg/FFprobe. Run the affected pack's tests under `assets/packs/<pack>/tests/` when changing its files.
 
 Keep generated frames, Blender projects, videos, reports and logs in ignored `build/` directories. Commit source and intentionally reviewed records. Do not rewrite unrelated branches or overwrite asset inputs with generated outputs.

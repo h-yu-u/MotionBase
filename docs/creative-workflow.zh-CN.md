@@ -11,15 +11,14 @@ MotionBase 将对话中的创作意图保存到作品工作区，再由 CLI 执�
 
 ## 1. 从一句创作描述开始
 
-首次使用时，把引擎和资产取到同级目录。当前同一 GitHub 仓库的 `main` 与 `assets` 分支分别保存两套独立历史：
+首次使用时克隆 `main`，引擎、配套资产、作品范例与 Skills 都在同一次检出中：
 
 ```bash
 git clone https://github.com/h-yu-u/MotionBase.git
-git clone --branch assets --single-branch https://github.com/h-yu-u/MotionBase.git motionbase-assets
 cd MotionBase
 ```
 
-`assets` 分支根目录就是独立资产工程。后续可以将它原样推到单独仓库，作品依然通过旁边的 `motionbase-assets/packs/` 使用资产。
+共享资产位于 `assets/packs/`，作品输入位于 `productions/`。引擎通过包清单加载资产；相关创作与实现改动可以一起提交到 `main`。
 
 例如：
 
@@ -30,8 +29,8 @@ cd MotionBase
 在 MotionBase 仓库根目录检查配套资产：
 
 ```bash
-python3 -m motionbase assets --pack ../motionbase-assets/packs/fox-cliff/pack.json
-python3 -m motionbase styles --pack ../motionbase-assets/packs/fox-cliff/pack.json
+python3 -m motionbase assets --pack assets/packs/fox-cliff/pack.json
+python3 -m motionbase styles --pack assets/packs/fox-cliff/pack.json
 ```
 
 镜头字段以 [`shot-v1.schema.json`](../contracts/shot-v1.schema.json) 为准，作品选择以 [`project-v1.schema.json`](../contracts/project-v1.schema.json) 为准。角色骨名、Action 名和集合名来自实际资产，Skills 不维护另一份硬编码数据。

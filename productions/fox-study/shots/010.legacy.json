@@ -7,16 +7,16 @@
     540
   ],
   "samples": 10,
-  "audio": "../../../../motionbase-assets/packs/fox-cliff/audio/leap.wav",
+  "audio": "../../../assets/packs/fox-cliff/audio/leap.wav",
   "stage": {
-    "file": "../../../../motionbase-assets/packs/fox-cliff/stages/cliff.blend",
+    "file": "../../../assets/packs/fox-cliff/stages/cliff.blend",
     "collection": "Cliff",
     "camera": "ShotCamera"
   },
   "actors": [
     {
       "id": "fox",
-      "file": "../../../../motionbase-assets/packs/fox-cliff/characters/fox.blend",
+      "file": "../../../assets/packs/fox-cliff/characters/fox.blend",
       "collection": "Performer",
       "rig": "PerformerRig",
       "position": [
@@ -26,7 +26,7 @@
       ],
       "clips": [
         {
-          "file": "../../../../motionbase-assets/packs/fox-cliff/actions/leap.blend",
+          "file": "../../../assets/packs/fox-cliff/actions/leap.blend",
           "action": "Leap and sweep",
           "start": 1,
           "end": 150

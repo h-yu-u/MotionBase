@@ -1,14 +1,14 @@
 {
   "version": 1,
   "project": "fox-study",
-  "project_sha256": "04681adec6f7bbb52631d7a858e7b9dc96cab1ec410a562899c96697bf2ea922",
+  "project_sha256": "b018cc2159d11a0204b2240062df80fea347a3c688b371f0fabdfe77d5084375",
   "engine": {
     "version": "0.1.0",
     "source_sha256": "306e0704ae2c173311cffd26b8986bf6918c5f8661476492d4197753e5bf5276"
   },
   "packs": {
     "fox-cliff": {
-      "manifest": "../../../motionbase-assets/packs/fox-cliff/pack.json",
+      "manifest": "../../assets/packs/fox-cliff/pack.json",
       "revision": "1.0.0",
       "manifest_sha256": "f0b69a5e96c31b164f642279c163df2daa5b963d4b134931b2f54bd33eda69c6",
       "files": {

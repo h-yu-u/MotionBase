@@ -2,19 +2,21 @@
 
 用 Python 编排 Blender 的本地动画执行基座。把创作对话整理成镜头描述，再使用可复用的角色、舞台、Action 和画风生成可编辑的 `.blend` 与 MP4。
 
-**引擎、资产与作品分开维护，Skills 与引擎一起演进。** 当前可运行范例是原创狐面角色的五秒腾跃镜头，青绿赛璐璐和朱砂木刻两种画风共用动作、相机、音轨和拖尾轨迹。
+**引擎、资产、作品和 Skills 在同一个 `main` 分支维护，按目录与契约划分职责。** 当前可运行范例是原创狐面角色的五秒腾跃镜头，青绿赛璐璐和朱砂木刻两种画风共用动作、相机、音轨和拖尾轨迹。
 
 ## 仓库与目录
 
-当前在同一个 GitHub 仓库内分别维护两条分支，检出为同级的两个独立工作目录：
+克隆一次仓库即可取得运行范例需要的引擎、资产与作品配置：
 
 | 位置 | 内容 |
 | --- | --- |
-| [`main`](https://github.com/h-yu-u/MotionBase/tree/main) → `MotionBase/` | Python 引擎、数据契约、项目 Skills、通用测试和作品范例 |
-| [`assets`](https://github.com/h-yu-u/MotionBase/tree/assets) → `motionbase-assets/` | 独立资产工程，包含 `packs/fox-cliff` 的模型、动作、背景、声音、画风及制作源码 |
-| `MotionBase/productions/fox-study/` | 作品 brief、镜头计划、资产选择、版本锁和评审记录 |
+| [`motionbase/`](motionbase/) | Python 引擎、资产解析、作品编译与 Blender 执行 |
+| [`assets/packs/fox-cliff/`](assets/packs/fox-cliff/) | 模型、动作、背景、声音、画风、制作源码和资产专属测试 |
+| [`productions/fox-study/`](productions/fox-study/) | 作品 brief、镜头计划、资产选择、版本锁和评审记录 |
+| [`skills/`](skills/) | 创作与评审流程 |
+| [`contracts/`](contracts/)、[`tests/`](tests/) | 数据契约与通用回归 |
 
-资产分支的根目录本身就是完整的资产工程，可以直接迁移到独立仓库；引擎通过 `pack.json` 路径消费资产，与 Git 托管位置无关。详见[架构与边界](docs/architecture.zh-CN.md)。
+引擎通过 `pack.json` 消费资产，模块边界由目录和接口保持。关联的引擎、资产、镜头与 Skill 改动可以在一次提交中一起验证和回退。详见[架构与边界](docs/architecture.zh-CN.md)。
 
 ## 快速开始
 
@@ -22,7 +24,6 @@
 
 ```bash
 git clone https://github.com/h-yu-u/MotionBase.git
-git clone --branch assets --single-branch https://github.com/h-yu-u/MotionBase.git motionbase-assets
 cd MotionBase
 python3 -m venv .venv
 source .venv/bin/activate
@@ -40,8 +41,8 @@ export BLENDER_BIN=/Applications/Blender.app/Contents/MacOS/Blender
 ### 1. 查看资产与画风
 
 ```bash
-motionbase assets --pack ../motionbase-assets/packs/fox-cliff/pack.json
-motionbase styles --pack ../motionbase-assets/packs/fox-cliff/pack.json
+motionbase assets --pack assets/packs/fox-cliff/pack.json
+motionbase styles --pack assets/packs/fox-cliff/pack.json
 ```
 
 ### 2. 编译并检查示例镜头
@@ -111,7 +112,7 @@ motionbase check productions/fox-study/shots/010.legacy.json --style moon-cel
 motionbase build productions/fox-study/shots/010.legacy.json --style woodblock -o productions/fox-study/build/legacy.blend
 ```
 
-`moon-cel` / `woodblock` 两个名称作为兼容预设随 Python 包提供；完整的示例美术源码和权威资产位于独立资产工程。外部画风可使用 JSON 路径，也可通过 `--style-dir DIR` 按名称查找。自定义材质库通过风格的 `materials.file` 与 `roles` 映射接入。
+`moon-cel` / `woodblock` 两个名称作为兼容预设随 Python 包提供；完整的示例美术源码和权威资产位于 `assets/packs/fox-cliff/`。外部画风可使用 JSON 路径，也可通过 `--style-dir DIR` 按名称查找。自定义材质库通过风格的 `materials.file` 与 `roles` 映射接入。
 
 字段与路径规则见 [`contracts/`](contracts/) 和[数据契约](docs/contracts.zh-CN.md)。不会自动重定向不兼容骨架。当前 v1 使用舞台相机，镜头级相机覆盖、多镜头转场编排和接地约束检测仍属于后续扩展；当前范例是适合侧拍的 2.5D 角色。
 
@@ -125,10 +126,10 @@ blender -b --factory-startup --disable-autoexec --python-exit-code 1 -P tests/in
 python3 tests/render_smoke.py --blender /path/to/blender
 ```
 
-最后一个命令还要求 FFmpeg 和 FFprobe，检查实际输出的视频与音轨。资产工程有自己的角色专属回归：
+最后一个命令还要求 FFmpeg 和 FFprobe，检查实际输出的视频与音轨。资产包在同一仓库内保留自己的角色专属回归：
 
 ```bash
-blender -b --factory-startup --disable-autoexec --python-exit-code 1 -P ../motionbase-assets/packs/fox-cliff/tests/asset_contract.py -- --engine-root .
+blender -b --factory-startup --disable-autoexec --python-exit-code 1 -P assets/packs/fox-cliff/tests/asset_contract.py -- --engine-root .
 ```
 
 GitHub Actions 执行纯 Python 测试、安装包检查、Blender 集成测试和小尺寸视频编码测试。实际迁移验收与范围见[验证记录](docs/verification.zh-CN.md)。

@@ -2,7 +2,7 @@
   "version": 1,
   "id": "fox-study",
   "packs": {
-    "fox-cliff": "../../../motionbase-assets/packs/fox-cliff/pack.json"
+    "fox-cliff": "../../assets/packs/fox-cliff/pack.json"
   },
   "shots": {
     "010": {

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "id": "fox-cliff",
+  "revision": "1.0.0",
+  "blender": "4.5",
+  "assets": {
+    "character.fox": {
+      "kind": "character",
+      "file": "characters/fox.blend",
+      "collection": "Performer",
+      "rig": "PerformerRig",
+      "rig_id": "fox-humanoid-v1"
+    },
+    "stage.cliff": {
+      "kind": "stage",
+      "file": "stages/cliff.blend",
+      "collection": "Cliff",
+      "camera": "ShotCamera"
+    },
+    "action.leap": {
+      "kind": "action",
+      "file": "actions/leap.blend",
+      "action": "Leap and sweep",
+      "rig_id": "fox-humanoid-v1"
+    },
+    "look.moon-cel": {
+      "kind": "style",
+      "file": "looks/moon-cel.json"
+    },
+    "look.woodblock": {
+      "kind": "style",
+      "file": "looks/woodblock.json"
+    },
+    "audio.leap": {
+      "kind": "audio",
+      "file": "audio/leap.wav"
+    }
+  }
+}
