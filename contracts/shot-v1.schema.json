@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:motionbase:contracts:shot-v1",
+  "title": "MotionBase shot v1",
+  "type": "object",
+  "required": [
+    "version",
+    "fps",
+    "frames",
+    "size",
+    "stage",
+    "actors"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "fps": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "frames": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "size": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "integer",
+        "minimum": 2,
+        "multipleOf": 2
+      }
+    },
+    "samples": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stage": {},
+    "actors": {
+      "type": "array"
+    },
+    "trails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/trail"
+      }
+    },
+    "audio": {}
+  },
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "title": "Renderer v1 with explicit file references",
+      "properties": {
+        "stage": {
+          "$ref": "#/$defs/fileStage"
+        },
+        "actors": {
+          "items": {
+            "$ref": "#/$defs/fileActor"
+          }
+        },
+        "audio": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    },
+    {
+      "title": "Production v1 with asset IDs, requiring compile before execution",
+      "properties": {
+        "stage": {
+          "$ref": "#/$defs/assetStage"
+        },
+        "actors": {
+          "items": {
+            "$ref": "#/$defs/assetActor"
+          }
+        },
+        "audio": {
+          "$ref": "#/$defs/audioReference"
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "fileStage": {
+      "type": "object",
+      "required": [
+        "file",
+        "collection",
+        "camera"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "collection": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "camera": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "additionalProperties": false
+    },
+    "assetStage": {
+      "type": "object",
+      "required": [
+        "asset"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]*:[a-z0-9][a-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "fileActor": {
+      "type": "object",
+      "required": [
+        "id",
+        "file",
+        "collection",
+        "rig",
+        "clips"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "collection": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "rig": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "position": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "clips": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fileClip"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "assetActor": {
+      "type": "object",
+      "required": [
+        "id",
+        "asset",
+        "clips"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "asset": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]*:[a-z0-9][a-z0-9._-]*$"
+        },
+        "position": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "clips": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/assetClip"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "fileClip": {
+      "type": "object",
+      "required": [
+        "file",
+        "action",
+        "start",
+        "end"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "assetClip": {
+      "type": "object",
+      "required": [
+        "asset",
+        "start",
+        "end"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]*:[a-z0-9][a-z0-9._-]*$"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "audioReference": {
+      "type": "object",
+      "required": [
+        "asset"
+      ],
+      "properties": {
+        "asset": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]*:[a-z0-9][a-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "trail": {
+      "type": "object",
+      "required": [
+        "actor",
+        "bone",
+        "inner",
+        "outer",
+        "role",
+        "start",
+        "end",
+        "history"
+      ],
+      "properties": {
+        "actor": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "bone": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "inner": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "outer": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "history": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

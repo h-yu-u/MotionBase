@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:motionbase:contracts:pack-v1",
+  "title": "MotionBase portable asset pack v1",
+  "type": "object",
+  "required": [
+    "version",
+    "id",
+    "revision",
+    "blender",
+    "assets"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "revision": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "blender": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(?:\\.\\d+)?$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "assets": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9._-]*$"
+      },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "file",
+              "collection",
+              "rig",
+              "rig_id"
+            ],
+            "properties": {
+              "kind": {
+                "const": "character"
+              },
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\.[bB][lL][eE][nN][dD]$"
+              },
+              "collection": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "rig": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "rig_id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "file",
+              "collection",
+              "camera"
+            ],
+            "properties": {
+              "kind": {
+                "const": "stage"
+              },
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\.[bB][lL][eE][nN][dD]$"
+              },
+              "collection": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "camera": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "file",
+              "action",
+              "rig_id"
+            ],
+            "properties": {
+              "kind": {
+                "const": "action"
+              },
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\.[bB][lL][eE][nN][dD]$"
+              },
+              "action": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "rig_id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "file"
+            ],
+            "properties": {
+              "kind": {
+                "const": "style"
+              },
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\.[jJ][sS][oO][nN]$"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "file"
+            ],
+            "properties": {
+              "kind": {
+                "const": "audio"
+              },
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "file",
+              "collection"
+            ],
+            "properties": {
+              "kind": {
+                "const": "prop"
+              },
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\.[bB][lL][eE][nN][dD]$"
+              },
+              "collection": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "kind",
+              "file",
+              "material"
+            ],
+            "properties": {
+              "kind": {
+                "const": "material"
+              },
+              "file": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\.[bB][lL][eE][nN][dD]$"
+              },
+              "material": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false
+}

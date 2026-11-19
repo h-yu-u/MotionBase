@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:motionbase:contracts:style-v1",
+  "title": "MotionBase style v1",
+  "type": "object",
+  "required": [
+    "version",
+    "name",
+    "shading",
+    "light",
+    "shadow",
+    "rim",
+    "grain",
+    "palette"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "shading": {
+      "enum": [
+        "bands",
+        "continuous"
+      ]
+    },
+    "light": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number"
+      },
+      "not": {
+        "const": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "shadow": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "rim": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "grain": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "palette": {
+      "type": "object",
+      "required": [
+        "sky",
+        "ink"
+      ],
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^#[0-9a-fA-F]{6}$"
+      }
+    },
+    "materials": {
+      "type": "object",
+      "required": [
+        "file",
+        "roles"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "roles": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
